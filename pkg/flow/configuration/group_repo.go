@@ -87,8 +87,8 @@ func (repo *ConfigGroupRepo) pull() error {
 	)
 	for retryTimes < 3 {
 		startTime := time.Now()
-		response, err := repo.connector.GetConfigGroup(req)
-
+		response, resErr := repo.connector.GetConfigGroup(req)
+		err = resErr
 		if err != nil {
 			log.GetBaseLogger().Errorf("[Config][Group] failed to pull. retry times = %d, err = %v", retryTimes, err)
 			repo.retryPolicy.fail()

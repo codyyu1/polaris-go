@@ -182,8 +182,8 @@ func (r *ConfigFileRepo) pull() error {
 	for retryTimes < 3 {
 		startTime := time.Now()
 
-		response, err := r.chain.Execute(pullConfigFileReq, r.connector.GetConfigFile)
-
+		response, resErr := r.chain.Execute(pullConfigFileReq, r.connector.GetConfigFile)
+		err = resErr
 		if err != nil {
 			log.GetBaseLogger().Errorf("[Config] failed to pull config file. retry times = %d, err = %v", retryTimes, err)
 			r.retryPolicy.fail()
